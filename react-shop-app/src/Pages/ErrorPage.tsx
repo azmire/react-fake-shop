@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -24,7 +23,7 @@ const Error = () => {
           <Button
             className="m-2 w-25"
             variant="dark"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
           >
             Home
           </Button>

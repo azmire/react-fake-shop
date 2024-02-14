@@ -16,7 +16,7 @@ function ItemCard({ title, price, image, id }: ItemCardProps) {
     <>
       <Card className="h-100" style={{ width: "18rem" }}>
         <Card.Body>
-          <NavLink as={Link} to={`/home/${id}`}>
+          <NavLink as={Link} to={`/${id}`}>
             <Card.Img
               className="card-img-top"
               variant="top"

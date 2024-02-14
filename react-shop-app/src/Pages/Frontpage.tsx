@@ -13,7 +13,6 @@ function Frontpage() {
       if (response.ok) {
         const result = (await response.json()) as Root;
         setItems(result);
-        console.log(result);
       }
     } catch (error) {
       console.log(error);
