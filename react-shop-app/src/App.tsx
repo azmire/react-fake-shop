@@ -10,7 +10,9 @@ import Jewlery from "./Pages/Jewlery";
 import Item from "./Pages/ItemPage";
 import Signin from "./Pages/Signin";
 import { AuthProvider } from "./contexts/AuthContext";
-import Logout from "./Pages/Logout";
+
+import RateSection from "./Components/NestedRoutes/RateSection";
+import ProtectedRoute from "./Components/NestedRoutes/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,16 @@ const router = createBrowserRouter([
       {
         path: "/:id",
         element: <Item />,
+        children: [
+          {
+            path: "ratings",
+            element: (
+              <ProtectedRoute>
+                <RateSection />
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
       {
         path: "/mensclothing",
@@ -44,10 +56,7 @@ const router = createBrowserRouter([
         path: "/signin",
         element: <Signin />,
       },
-      {
-        path: "/logout",
-        element: <Logout />,
-      },
+
       {
         path: "*",
         element: <Error />,

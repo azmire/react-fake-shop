@@ -13,7 +13,7 @@ export default function Signin() {
 
   useEffect(() => {
     if (user) {
-      navigate("/logout");
+      navigate(-1);
     }
   }, [user]);
   return (

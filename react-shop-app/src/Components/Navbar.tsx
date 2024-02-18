@@ -1,20 +1,54 @@
-import { useContext } from "react";
-import { Col, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import { useContext, useEffect, useState } from "react";
+import { Button, Col, Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import { SearchContext } from "../contexts/SearchContext";
+import Grid from "./Grid";
+import { CgProfile, CgShoppingCart } from "react-icons/cg";
+import { LuLogOut } from "react-icons/lu";
+import CreateModal from "./Modal";
 
 function NavScroll() {
-  const { user } = useContext(AuthContext);
-  let navLabel = user ? "Log Out" : "Sign in";
-  let navPath = user ? "/logout" : "/signin";
+  const [openModal, setOpenModal] = useState(true);
+  const { logoutUser, user } = useContext(AuthContext);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  let navLabel;
+  let navPath = "/signin";
+  let direction = "";
+
+  if (user) {
+    navLabel = (
+      <Button
+        variant="link"
+        className="text-dark mx-auto ms-auto"
+        onClick={logoutUser}
+        title="Log out"
+      >
+        <LuLogOut size={30}></LuLogOut>
+      </Button>
+    );
+  } else {
+    direction = navPath;
+    navLabel = <CgProfile title="Log in" className="m-3" size={30}></CgProfile>;
+  }
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <>
+      <SearchContext.Provider value={search}>
+        <Grid />
+      </SearchContext.Provider>
       <Navbar expand="lg" className="bg-body-tertiary pt-0">
         <Container fluid className="gx-0">
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -55,12 +89,13 @@ function NavScroll() {
                   >
                     <Form className="d-sm-flex w-auto">
                       <Form.Control
+                        onChange={(e) => setSearch(e.target.value)}
                         type="search"
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
                       />
-                      <Button variant="dark">Search</Button>
+                      {/* <Button variant="dark">Search</Button> */}
                     </Form>
                   </Navbar>
                 </Col>
@@ -75,8 +110,15 @@ function NavScroll() {
                       Signed in as: &nbsp;
                       <a href="#login">Mark Otto</a>
                     </Navbar.Text> */}
-                    <Nav.Link as={Link} to={navPath} className="px-4">
+                    <Nav.Link as={Link} to={direction} className="ms-auto">
                       {navLabel}
+                    </Nav.Link>
+                    <Nav.Link>
+                      <CgShoppingCart
+                        className="m-3"
+                        size={30}
+                        title="Shopping Cart"
+                      ></CgShoppingCart>
                     </Nav.Link>
                   </Navbar>
                 </Col>
@@ -107,6 +149,7 @@ function NavScroll() {
         </Container>
       </Navbar>
       <Outlet />
+      {openModal && <CreateModal closeModal={setOpenModal} />}
     </>
   );
 }

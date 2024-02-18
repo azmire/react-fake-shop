@@ -1,20 +1,17 @@
-import { ReactNode, createContext, useState } from "react";
+import { createContext, useState } from "react";
+import { AuthContextType, AuthProviderProps } from "../@types/AuthContextTypes";
 
-const defaultValue = "No provider";
+const defaultValue = {
+  user: false,
+  loginUser: () => {
+    console.log("no provider");
+  },
+  logoutUser: () => {
+    console.log("no provider");
+  },
+};
 
-interface AuthContextType {
-  user: boolean;
-  loginUser: () => void;
-  logoutUser: () => void;
-}
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-export const AuthContext = createContext<AuthContextType | string>(
-  defaultValue
-);
+export const AuthContext = createContext<AuthContextType>(defaultValue);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState(false);
