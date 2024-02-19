@@ -4,19 +4,19 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-import { SearchContext } from "../contexts/SearchContext";
-import Grid from "./Grid";
 import { CgProfile, CgShoppingCart } from "react-icons/cg";
 import { LuLogOut } from "react-icons/lu";
+import { ModalContext } from "../contexts/ModalContext";
 import CreateModal from "./Modal";
 
 function NavScroll() {
-  const [openModal, setOpenModal] = useState(true);
-  const { logoutUser, user } = useContext(AuthContext);
-  const [search, setSearch] = useState("");
-  const navigate = useNavigate();
+  const [input, setInput] = useState("");
+  const { openModal, modal } = useContext(ModalContext);
+  const { user } = useContext(AuthContext);
+
+  const [search] = useState(input);
 
   let navLabel;
   let navPath = "/signin";
@@ -27,7 +27,7 @@ function NavScroll() {
       <Button
         variant="link"
         className="text-dark mx-auto ms-auto"
-        onClick={logoutUser}
+        onClick={openModal}
         title="Log out"
       >
         <LuLogOut size={30}></LuLogOut>
@@ -38,17 +38,8 @@ function NavScroll() {
     navLabel = <CgProfile title="Log in" className="m-3" size={30}></CgProfile>;
   }
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, [user]);
-
   return (
     <>
-      <SearchContext.Provider value={search}>
-        <Grid />
-      </SearchContext.Provider>
       <Navbar expand="lg" className="bg-body-tertiary pt-0">
         <Container fluid className="gx-0">
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -89,13 +80,13 @@ function NavScroll() {
                   >
                     <Form className="d-sm-flex w-auto">
                       <Form.Control
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => setInput(e.target.value)}
                         type="search"
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
                       />
-                      {/* <Button variant="dark">Search</Button> */}
+                      <Button variant="dark">Search</Button>
                     </Form>
                   </Navbar>
                 </Col>
@@ -149,7 +140,7 @@ function NavScroll() {
         </Container>
       </Navbar>
       <Outlet />
-      {openModal && <CreateModal closeModal={setOpenModal} />}
+      {modal && <CreateModal />}
     </>
   );
 }

@@ -1,8 +1,8 @@
 import { Result, Root } from "../@types/ItemTypes";
 import { Col } from "react-bootstrap";
 import ItemCard from "./ItemCard";
-import { SearchContext } from "../contexts/SearchContext";
 import { useContext } from "react";
+import { SearchContext } from "../contexts/SearchContext";
 
 type GridProps = {
   items: Root | null;
@@ -11,10 +11,7 @@ type GridProps = {
 
 export default function Grid({ items }: GridProps) {
   const search = useContext(SearchContext);
-
-  /* let search = "wh";*/
   console.log(search);
-
   return (
     <>
       {items &&
