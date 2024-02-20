@@ -1,26 +1,18 @@
-import { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
-import { Root } from "../@types/ItemTypes";
+import { Container, Row, Spinner } from "react-bootstrap";
 import Grid from "../Components/Grid";
+import useFetch from "../UseSearch/useFetch";
 
 function Frontpage() {
-  const [items, setItems] = useState<Root | null>(null);
+  /* const [items, setItems] = useState<Root | null>(null); */
   const url = "https://fakestoreapi.com/products";
+  const { items, loading } = useFetch(url);
 
-  const GetItems = async () => {
-    try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const result = (await response.json()) as Root;
-        setItems(result);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    GetItems();
-  }, []);
+  if (loading)
+    return (
+      <div className="d-flex justify-content-center ">
+        <Spinner animation="border" />
+      </div>
+    );
 
   return (
     <>

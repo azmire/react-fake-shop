@@ -4,24 +4,25 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { CgProfile, CgShoppingCart } from "react-icons/cg";
 import { LuLogOut } from "react-icons/lu";
 import { ModalContext } from "../contexts/ModalContext";
 import CreateModal from "./Modal";
+import { SearchContext } from "../contexts/SearchContext";
+import Grid from "./Grid";
 
 function NavScroll() {
   const [input, setInput] = useState("");
   const { openModal, modal } = useContext(ModalContext);
   const { user } = useContext(AuthContext);
 
-  const [search] = useState(input);
-
+  /* const [search] = useState(input); */
+  console.log();
   let navLabel;
   let navPath = "/signin";
-  let direction = "";
-
+  const [direction, setDirection] = useState("");
   if (user) {
     navLabel = (
       <Button
@@ -33,13 +34,16 @@ function NavScroll() {
         <LuLogOut size={30}></LuLogOut>
       </Button>
     );
-  } else {
-    direction = navPath;
+  } else if (!user) {
+    setDirection(navPath);
     navLabel = <CgProfile title="Log in" className="m-3" size={30}></CgProfile>;
   }
 
   return (
     <>
+      <SearchContext.Provider value={input}>
+        <Grid />
+      </SearchContext.Provider>
       <Navbar expand="lg" className="bg-body-tertiary pt-0">
         <Container fluid className="gx-0">
           <Navbar.Toggle aria-controls="navbarScroll" />

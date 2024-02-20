@@ -11,6 +11,7 @@ type GridProps = {
 
 export default function Grid({ items }: GridProps) {
   const search = useContext(SearchContext);
+
   console.log(search);
   return (
     <>

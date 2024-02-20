@@ -1,10 +1,24 @@
-import React from "react";
-
+import useFetch from "../UseSearch/useFetch";
+import { Container, Row, Spinner } from "react-bootstrap";
+import Grid from "../Components/Grid";
 function Jewlery() {
+  const url = "https://fakestoreapi.com/products/category/jewelery";
+  const { items, loading } = useFetch(url);
+
+  if (loading)
+    return (
+      <div className="d-flex justify-content-center ">
+        <Spinner animation="border" />
+      </div>
+    );
   return (
-    <div>
-      <h1>Jewlery</h1>
-    </div>
+    <>
+      <Container className="mx-auto ms-auto">
+        <Row className="d-flex">
+          <Grid items={items} />
+        </Row>
+      </Container>
+    </>
   );
 }
 

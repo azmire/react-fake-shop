@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
-import { Root } from "../@types/ItemTypes";
+import useFetch from "../UseSearch/useFetch";
+import { Container, Row, Spinner } from "react-bootstrap";
+import Grid from "../Components/Grid";
 
 function Electronics() {
-  const [items, setItems] = useState<Root | null>(null);
+  const url = "https://fakestoreapi.com/products/category/electronics";
+  const { items, loading, error } = useFetch(url);
 
+  if (loading)
+    return (
+      <div className="d-flex justify-content-center ">
+        <Spinner animation="border" />
+      </div>
+    );
+  if (error) console.log(error);
   return (
     <>
       <Container className="mx-auto ms-auto">
         <Row>
-          <p>electronics</p>
+          <Grid items={items} />
         </Row>
       </Container>
     </>
