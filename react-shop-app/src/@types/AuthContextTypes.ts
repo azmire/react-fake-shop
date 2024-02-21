@@ -1,9 +1,10 @@
+import { User } from "firebase/auth";
 import { ReactNode } from "react";
 
 export declare type AuthContextType = {
-  user: boolean;
-  loginUser: () => void | boolean;
-  logoutUser: () => void | boolean;
+  user: User | null;
+  loginUser: (email: string, password: string) => void;
+  logoutUser: (email: string, password: string) => void;
 };
 
 export declare type AuthProviderProps = {

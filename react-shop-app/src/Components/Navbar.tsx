@@ -22,7 +22,8 @@ function NavScroll() {
   console.log();
   let navLabel;
   let navPath = "/signin";
-  const [direction, setDirection] = useState("");
+  let direction = "";
+
   if (user) {
     navLabel = (
       <Button
@@ -34,8 +35,8 @@ function NavScroll() {
         <LuLogOut size={30}></LuLogOut>
       </Button>
     );
-  } else if (!user) {
-    setDirection(navPath);
+  } else {
+    direction = navPath;
     navLabel = <CgProfile title="Log in" className="m-3" size={30}></CgProfile>;
   }
 

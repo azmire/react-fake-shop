@@ -9,11 +9,12 @@ import Error from "./Pages/ErrorPage";
 import Jewlery from "./Pages/Jewlery";
 import Item from "./Pages/ItemPage";
 import Signin from "./Pages/Signin";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthContextProvider } from "./contexts/AuthContext";
 
 import RateSection from "./Components/NestedRoutes/RateSection";
 import ProtectedRoute from "./Components/NestedRoutes/ProtectedRoute";
 import { ModalContext, ModalProvider } from "./contexts/ModalContext";
+import Signup from "./Pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
         path: "/signin",
         element: <Signin />,
       },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
 
       {
         path: "*",
@@ -69,11 +74,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <AuthProvider>
+      <AuthContextProvider>
         <ModalProvider>
           <RouterProvider router={router} />
         </ModalProvider>
-      </AuthProvider>
+      </AuthContextProvider>
     </>
   );
 }

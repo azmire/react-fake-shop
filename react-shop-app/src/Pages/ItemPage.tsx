@@ -1,6 +1,6 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Result } from "../@types/ItemTypes";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -15,6 +15,7 @@ import StarRating from "../Components/StarRating";
 import { TbTruck, TbTruckReturn } from "react-icons/tb";
 
 import { RiSecurePaymentFill } from "react-icons/ri";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Item = () => {
   const params = useParams();
@@ -23,6 +24,7 @@ const Item = () => {
   const url = `https://fakestoreapi.com/products/${id}`;
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const GetItems = async () => {
     try {
@@ -37,7 +39,7 @@ const Item = () => {
   };
   useEffect(() => {
     GetItems();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const { pathname } = location;
@@ -51,7 +53,11 @@ const Item = () => {
       <Container>
         <Row>
           <Col>
-            <Image style={{ height: "500px" }} src={products?.image} rounded />
+            <Image
+              style={{ height: "500px", maxWidth: "480px" }}
+              src={products?.image}
+              rounded
+            />
           </Col>
           <Col>
             <h1>{products?.title}</h1>
