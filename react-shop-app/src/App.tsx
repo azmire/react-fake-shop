@@ -13,8 +13,9 @@ import { AuthContextProvider } from "./contexts/AuthContext";
 
 import RateSection from "./Components/NestedRoutes/RateSection";
 import ProtectedRoute from "./Components/NestedRoutes/ProtectedRoute";
-import { ModalContext, ModalProvider } from "./contexts/ModalContext";
+import { ModalProvider } from "./contexts/ModalContext";
 import Signup from "./Pages/SignUp";
+import { SearchProvider } from "./contexts/SearchContext";
 
 const router = createBrowserRouter([
   {
@@ -75,9 +76,11 @@ function App() {
   return (
     <>
       <AuthContextProvider>
-        <ModalProvider>
-          <RouterProvider router={router} />
-        </ModalProvider>
+        <SearchProvider>
+          <ModalProvider>
+            <RouterProvider router={router} />
+          </ModalProvider>
+        </SearchProvider>
       </AuthContextProvider>
     </>
   );
