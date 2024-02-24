@@ -25,11 +25,12 @@ function CreateModal() {
           }
         }}
       >
-        <div className="modal-content">
+        <div className="bg-light border border-dark border-5 p-5 ">
           <h3 className="d-flex ">Are You sure You want to Log out?</h3>
-          <div className="d-inline">
+          <div className="d-flex justify-content-center">
             <Button
-              className="close m-2"
+              variant="dark"
+              className=" m-2"
               onClick={() => {
                 logoutUser();
                 closeModal();
@@ -37,7 +38,7 @@ function CreateModal() {
             >
               Log out
             </Button>
-            <Button className="close m-2" onClick={closeModal}>
+            <Button variant="dark" className=" m-2" onClick={closeModal}>
               Cancel
             </Button>
           </div>

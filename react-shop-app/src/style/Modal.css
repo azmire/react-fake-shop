@@ -24,7 +24,7 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content {
+/* .modal-content {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -35,20 +35,22 @@
   background-color: #fefefe;
   padding: 20px;
   width: 400px;
-}
+} */
 
 /* The Close Button */
-.close {
+/* .close {
+  display: flex;
   color: white;
   background-color: black;
   float: none;
   border: none;
   border-radius: 5px;
-}
+} */
 
-.close:hover,
+/* .close:hover,
 .close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
+ */

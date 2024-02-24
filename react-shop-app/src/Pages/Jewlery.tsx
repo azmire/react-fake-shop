@@ -13,7 +13,7 @@ function Jewlery() {
     );
   return (
     <>
-      <Container className="mx-auto ms-auto">
+      <Container className="mx-auto ms-auto pt-4">
         <Row className="d-flex">
           <Grid items={items} />
         </Row>

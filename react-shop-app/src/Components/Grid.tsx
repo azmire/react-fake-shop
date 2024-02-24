@@ -1,26 +1,27 @@
-import { Result, Root } from "../@types/ItemTypes";
+import { Rating, Result, Root } from "../@types/ItemTypes";
 import { Col } from "react-bootstrap";
 import ItemCard from "./ItemCard";
-import { useContext } from "react";
 import { SearchContext } from "../contexts/SearchContext";
+import { useContext } from "react";
 
 type GridProps = {
   items: Root | null;
   item: Result;
+  rate: Rating;
 };
 
 export default function Grid({ items }: GridProps) {
-  const search = useContext(SearchContext);
+  const input = useContext(SearchContext);
+  console.log(input.input);
 
-  console.log(search);
   return (
     <>
       {items &&
         items
           .filter((item) => {
-            return search.toLowerCase() === ""
+            return input.input.toLowerCase() === ""
               ? item
-              : item.title.toLowerCase().includes(search);
+              : item.title.toLowerCase().includes(input.input);
           })
           .map((item) => {
             return (

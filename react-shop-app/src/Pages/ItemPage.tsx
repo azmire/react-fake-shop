@@ -10,7 +10,6 @@ import {
   ListGroup,
   Row,
 } from "react-bootstrap";
-import StarRating from "../Components/StarRating";
 
 import { TbTruck, TbTruckReturn } from "react-icons/tb";
 
@@ -50,7 +49,7 @@ const Item = () => {
 
   return (
     <>
-      <Container>
+      <Container className="pt-5">
         <Row>
           <Col>
             <Image
@@ -63,7 +62,18 @@ const Item = () => {
             <h1>{products?.title}</h1>
             <h3>{products?.price} €</h3>
             <p>{products?.description}</p>
-            <StarRating />
+
+            <div className="container">
+              <div className="row">
+                <div className="fw-bold p-0 col-md-4">
+                  <p>Average ratig is {products?.rating.rate}</p>
+                </div>
+                <div className="text-secondary p-0 col-md-8">
+                  <p>({products?.rating.count})</p>
+                </div>
+              </div>
+            </div>
+
             <Button variant="outline-danger">Add to cart</Button>
             <Card className="mt-5" style={{ width: "25rem" }}>
               <ListGroup variant="flush">

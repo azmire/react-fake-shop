@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Root } from "../@types/ItemTypes";
-type FetchProps = {
-  url: string;
-};
-function useFetch(url) {
+
+function useFetch(url: URL) {
   const [items, setItems] = useState<Root | null>(null);
   const [loading, setLoading] = useState(false);
 

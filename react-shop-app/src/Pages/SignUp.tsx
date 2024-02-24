@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +28,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/account");
+      navigate(-1);
     }
   }, [user, navigate]);
 
@@ -46,45 +46,47 @@ const SignUp = () => {
     setRepeatPassword(e.target.value);
   };
   return (
-    <Form onSubmit={handleSubmit} className="w-25 mx-auto ms-auto pt-5">
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Enter email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
+    <Card className="h-100 shadow mx-auto p-5 mt-4" style={{ width: "22rem" }}>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          id="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Repeat Password</Form.Label>
-        <Form.Control
-          type="password"
-          id="repeatPassword"
-          placeholder="Repeat Password"
-          value={repeatPassword}
-          onChange={handleRepeatPasswordChange}
-        />
-      </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Repeat Password</Form.Label>
+          <Form.Control
+            type="password"
+            id="repeatPassword"
+            placeholder="Repeat Password"
+            value={repeatPassword}
+            onChange={handleRepeatPasswordChange}
+          />
+        </Form.Group>
 
-      <Button className="d-grid col-12 mx-auto" variant="primary" type="submit">
-        Sign Up
-      </Button>
-    </Form>
+        <Button className="d-grid col-12 mx-auto" variant="dark" type="submit">
+          Sign Up
+        </Button>
+      </Form>
+    </Card>
   );
 };
 

@@ -1,55 +1,3 @@
-/* import { createContext, useState } from "react";
-import { AuthContextType, AuthProviderProps } from "../@types/AuthContextTypes";
-import { User, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
-const defaultValue: AuthContextType = {
-  user: null,
-  loginUser: () => {
-    console.log("no provider");
-  },
-  logoutUser: () => {
-    console.log("no provider");
-  },
-};
-
-export const AuthContext = createContext<AuthContextType>(defaultValue);
-
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
-
-  const loginU = (email: string, password: string) => {
-    console.log("Sign in called with", email, password);
-  };
-  const signup = (email: string, password: string) => {
-    console.log("Sign up called with", email, password);
-  };
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
-
-  const loginUser = () => {
-    setUser(true);
-  };
-  const logoutUser = () => {
-    setUser(null);
-  };
-  return (
-    <AuthContext.Provider value={{ loginUser, logoutUser, user }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
- */
-
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { auth } from "../firebaseConfig.ts";
 import {
@@ -68,9 +16,8 @@ interface AuthContextType {
   userChecked: boolean;
 }
 
-// sets the default value for the authentication context.
 const defaultValue: AuthContextType = {
-  user: null, // by default, the user is set to indicate no provider is present.
+  user: null,
   loginUser: () => {
     throw Error("signin function not implemented");
   },
@@ -159,11 +106,9 @@ export const AuthContextProvider = (props: Props) => {
         setUser(null);
       })
       .catch((error) => {
-        // An error happened.
         console.log("error :>> ", error);
       });
     // logout logic here
-    // refactor when we are dealing with a real authentication provider
   };
 
   return (

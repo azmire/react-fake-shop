@@ -6,4 +6,5 @@ input[type="radio"] {
 }
 .star-rating {
   padding: 2px;
+  margin-left: 50px;
 }

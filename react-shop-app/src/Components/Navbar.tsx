@@ -1,24 +1,22 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { CgProfile, CgShoppingCart } from "react-icons/cg";
 import { LuLogOut } from "react-icons/lu";
 import { ModalContext } from "../contexts/ModalContext";
 import CreateModal from "./Modal";
 import { SearchContext } from "../contexts/SearchContext";
-import Grid from "./Grid";
 
 function NavScroll() {
-  const [input, setInput] = useState("");
+  /* const [input, setInput] = useState(""); */
   const { openModal, modal } = useContext(ModalContext);
   const { user } = useContext(AuthContext);
-
-  /* const [search] = useState(input); */
+  const { search } = useContext(SearchContext);
   console.log();
   let navLabel;
   let navPath = "/signin";
@@ -42,15 +40,12 @@ function NavScroll() {
 
   return (
     <>
-      <SearchContext.Provider value={input}>
-        <Grid />
-      </SearchContext.Provider>
-      <Navbar expand="lg" className="bg-body-tertiary pt-0">
+      <Navbar expand="lg" className="bg-body-tertiary pt-0 pb-0">
         <Container fluid className="gx-0">
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Container
-              className=" pb-3 "
+              className=" pb-0 "
               style={{ margin: "0px", maxWidth: "100vw" }}
             >
               <Row className="bg-white">
@@ -60,8 +55,7 @@ function NavScroll() {
                       height: "12vh",
                       padding: "0",
                     }}
-                    /* navbarScroll
-                    as={Boolean} */
+                    /* navbarScroll */
                   >
                     <Nav.Link as={Link} to={"/"} className="px-4">
                       <div className="mx-auto">
@@ -76,7 +70,7 @@ function NavScroll() {
                     </Nav.Link>
                   </Navbar>
                 </Col>
-                <Col>
+                <Col className="d-flex justify-content-center">
                   <Navbar
                     style={{
                       height: "12vh",
@@ -85,13 +79,12 @@ function NavScroll() {
                   >
                     <Form className="d-sm-flex w-auto">
                       <Form.Control
-                        onChange={(e) => setInput(e.target.value)}
+                        onChange={search}
                         type="search"
-                        placeholder="Search"
+                        placeholder="Fliter the items"
                         className="me-2"
-                        aria-label="Search"
+                        aria-label="Filter"
                       />
-                      <Button variant="dark">Search</Button>
                     </Form>
                   </Navbar>
                 </Col>
