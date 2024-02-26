@@ -4,15 +4,11 @@ import Form from "react-bootstrap/Form";
 import StarRating from "../StarRating";
 import "../../style/Comments.css";
 import {
-  doc,
-  setDoc,
   collection,
   query,
-  where,
   getDocs,
-  DocumentSnapshot,
   serverTimestamp,
-  onSnapshot,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useContext, useEffect, useState } from "react";
@@ -31,21 +27,15 @@ function RateSection() {
 
   //RETRIEVE DATA FROM DATABASE
   const getItemReviews = async () => {
-    if (email && itemId) {
-      try {
-        const q = query(collection(db, "users", email, "review"));
-
-        const querySnapshot = await getDocs(q);
-
-        const filteredQuery = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setReviews(filteredQuery);
-        console.log("FILTEREDQUERY: ", filteredQuery);
-      } catch (err) {
-        console.error(err);
-      }
+    if (itemId) {
+      const reviewsRef = collection(db, "items", itemId, "reviews");
+      const reviewsForItemQuery = query(reviewsRef);
+      const querySnapshot = await getDocs(reviewsForItemQuery);
+      const filteredQuery = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setReviews(filteredQuery);
     }
   };
   useEffect(() => {
@@ -56,7 +46,8 @@ function RateSection() {
   const handleSubmit = async () => {
     if (email && itemId) {
       try {
-        await setDoc(doc(db, "users", email, "review", itemId), {
+        await addDoc(collection(db, "items", itemId, "reviews"), {
+          userName: email,
           itemReview: inputValue,
           timestamp: serverTimestamp(),
         });
@@ -82,7 +73,7 @@ function RateSection() {
               </div>
               <div className="flex-grow-1 ms-3">
                 <h5>
-                  {email}
+                  {review.userName}
                   <small className="text-muted">
                     {/* <i>{review.timestamp}</i> */}
                   </small>
