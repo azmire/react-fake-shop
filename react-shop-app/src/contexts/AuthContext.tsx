@@ -14,6 +14,7 @@ interface AuthContextType {
   signup: (email: string, password: string) => void;
   logoutUser: () => void;
   userChecked: boolean;
+  email: string | null;
 }
 
 const defaultValue: AuthContextType = {
@@ -28,6 +29,7 @@ const defaultValue: AuthContextType = {
     throw Error("logout function not implemented");
   },
   userChecked: false,
+  email: "",
 };
 
 // Creates a new context for authentication with the default value.
@@ -39,16 +41,21 @@ type Props = {
 
 export const AuthContextProvider = (props: Props) => {
   const [user, setUser] = useState<User | null>(null);
+  const [email, setEmail] = useState<string | null>("");
+  console.log("email :>> ", email);
   const [userChecked, setUserChecked] = useState<boolean>(false);
   const loginUser = (email: string, password: string) => {
     // signin logic goes here
+
     console.log("Signin called with:", email, password);
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
+
         const user = userCredential.user;
         setUser(user);
+
         // ...
       })
       .catch((error) => {
@@ -87,6 +94,7 @@ export const AuthContextProvider = (props: Props) => {
       if (user) {
         console.log("active user", user);
         setUser(user);
+        setEmail(user.email);
       } else {
         console.log("no active user");
       }
@@ -113,7 +121,7 @@ export const AuthContextProvider = (props: Props) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, loginUser, signup, logoutUser, userChecked }}
+      value={{ user, email, loginUser, signup, logoutUser, userChecked }}
     >
       {props.children}
     </AuthContext.Provider>

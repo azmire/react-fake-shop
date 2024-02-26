@@ -23,16 +23,17 @@ import { RxAvatar } from "react-icons/rx";
 function RateSection() {
   const [inputValue, setInputValue] = useState("");
   const [reviews, setReviews] = useState<Array<{}>>([]);
-  const { user } = useContext(AuthContext);
+  const { user, email } = useContext(AuthContext);
   const params = useParams();
   const itemId = params.id;
-  console.log(itemId);
+  console.log("RATE SECTION: ", user);
+  console.log("reviews :>> ", reviews);
 
   //RETRIEVE DATA FROM DATABASE
   const getItemReviews = async () => {
-    if (user && itemId) {
+    if (email && itemId) {
       try {
-        const q = query(collection(db, "users" /* , user.uid, "review" */));
+        const q = query(collection(db, "users", email, "review"));
 
         const querySnapshot = await getDocs(q);
 
@@ -53,14 +54,14 @@ function RateSection() {
 
   //ADD REVIEWS TO DATA BASE
   const handleSubmit = async () => {
-    if (user && itemId) {
+    if (email && itemId) {
       try {
-        await setDoc(doc(db, "users", user.uid, "review", itemId), {
+        await setDoc(doc(db, "users", email, "review", itemId), {
           itemReview: inputValue,
           timestamp: serverTimestamp(),
         });
         getItemReviews();
-        console.log("Document written with ID: ", user.uid);
+        console.log("Document written with ID: ", email);
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -69,6 +70,7 @@ function RateSection() {
   return (
     <>
       {reviews.map((review) => {
+        console.log("review :>> ", review);
         if (/* review.id == itemId */ true) {
           return (
             <div
@@ -80,7 +82,7 @@ function RateSection() {
               </div>
               <div className="flex-grow-1 ms-3">
                 <h5>
-                  Jhon Carter
+                  {email}
                   <small className="text-muted">
                     {/* <i>{review.timestamp}</i> */}
                   </small>
