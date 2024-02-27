@@ -42,7 +42,6 @@ type Props = {
 export const AuthContextProvider = (props: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState<string | null>("");
-  console.log("email :>> ", email);
   const [userChecked, setUserChecked] = useState<boolean>(false);
   const loginUser = (email: string, password: string) => {
     // signin logic goes here
@@ -105,8 +104,6 @@ export const AuthContextProvider = (props: Props) => {
     getActiveUser();
     setUserChecked(true);
   }, []);
-
-  console.log("user :>> ", user);
 
   const logoutUser = () => {
     signOut(auth)

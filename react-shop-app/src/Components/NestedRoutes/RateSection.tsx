@@ -9,21 +9,21 @@ import {
   getDocs,
   serverTimestamp,
   addDoc,
+  doc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 
 function RateSection() {
   const [inputValue, setInputValue] = useState("");
   const [reviews, setReviews] = useState<Array<{}>>([]);
-  const { user, email } = useContext(AuthContext);
+  const { email } = useContext(AuthContext);
   const params = useParams();
   const itemId = params.id;
-  console.log("RATE SECTION: ", user);
-  console.log("reviews :>> ", reviews);
 
   //RETRIEVE DATA FROM DATABASE
   const getItemReviews = async () => {
@@ -58,31 +58,48 @@ function RateSection() {
       }
     }
   };
+
+  //DELETE REVIEW
+  const navigate = useNavigate();
+  const deleteReview = async (reviewId) => {
+    console.log("username :>> ", reviewId);
+    if (itemId) {
+      const reviewsRef = doc(db, "items", itemId, "reviews", reviewId);
+
+      await deleteDoc(reviewsRef);
+      navigate(0);
+    }
+  };
+
   return (
     <>
       {reviews.map((review) => {
-        console.log("review :>> ", review);
-        if (/* review.id == itemId */ true) {
-          return (
-            <div
-              key={review.id}
-              className="d-flex m-5 mt-0 comment-bg rounded p-1"
-            >
-              <div className="flex-shrink-0">
-                <RxAvatar size={40} />
-              </div>
-              <div className="flex-grow-1 ms-3">
-                <h5>
-                  {review.userName}
-                  <small className="text-muted">
-                    {/* <i>{review.timestamp}</i> */}
-                  </small>
-                </h5>
-                <p>{review.itemReview}</p>
-              </div>
+        return (
+          <div
+            key={review.id}
+            className="d-flex m-5 mt-0 mb-3 comment-bg rounded p-1"
+          >
+            <div className="flex-shrink-0">
+              <RxAvatar size={40} />
             </div>
-          );
-        }
+            <div className="flex-grow-1 ms-3">
+              <h5>
+                {review.userName}
+                <small className="text-muted">
+                  {/* <i>{review.timestamp}</i> */}
+                </small>
+              </h5>
+              <p>{review.itemReview}</p>
+            </div>
+            <Button
+              onClick={() => deleteReview(review.id)}
+              className="my-auto mt-0 btn btn-link bg-transparent text-secondary text-decoration-none"
+              title="Delete"
+            >
+              X
+            </Button>
+          </div>
+        );
       })}
       <StarRating />
       <FloatingLabel

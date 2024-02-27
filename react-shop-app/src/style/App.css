@@ -7,3 +7,11 @@
   height: 20vw;
   object-fit: cover;
 }
+.text-overflow-clamp {
+  width: 100%;
+
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+}

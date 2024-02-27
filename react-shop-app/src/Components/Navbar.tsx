@@ -11,6 +11,7 @@ import { LuLogOut } from "react-icons/lu";
 import { ModalContext } from "../contexts/ModalContext";
 import CreateModal from "./Modal";
 import { SearchContext } from "../contexts/SearchContext";
+import ShoppingCart from "./ShoppingCart";
 
 function NavScroll() {
   /* const [input, setInput] = useState(""); */
@@ -103,11 +104,7 @@ function NavScroll() {
                       {navLabel}
                     </Nav.Link>
                     <Nav.Link>
-                      <CgShoppingCart
-                        className="m-3"
-                        size={30}
-                        title="Shopping Cart"
-                      ></CgShoppingCart>
+                      <ShoppingCart />
                     </Nav.Link>
                   </Navbar>
                 </Col>

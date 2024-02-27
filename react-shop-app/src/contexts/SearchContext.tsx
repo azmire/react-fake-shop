@@ -1,7 +1,3 @@
-/* import { createContext } from "react";
-
-export const SearchContext = createContext(""); */
-
 import { createContext, useState } from "react";
 import { ModalProviderProps } from "../@types/ModalContextTypes";
 

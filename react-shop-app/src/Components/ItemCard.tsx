@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-bootstrap";
+import ".././style/App.css";
 
 type ItemCardProps = {
   title: string;
@@ -14,16 +15,13 @@ type ItemCardProps = {
 function ItemCard({ title, price, image, id }: ItemCardProps) {
   return (
     <>
-      <Card className="h-100 shadow" style={{ width: "18rem" }}>
+      <Card className="h-100 shadow pb-2" style={{ width: "18rem" }}>
         <Card.Body className="d-flex flex-column-reverse">
           <NavLink title="Click to see more" as={Link} to={`/${id}`}>
-            <Card.Img
-              className="card-img-top"
-              variant="top"
-              style={{ height: "250px" }}
-              src={image}
-            />
-            <Card.Title className="p-3 m-0 ">{title}</Card.Title>
+            <div className="card-img-top" style={{ height: "300px" }}>
+              <Card.Img style={{ height: "100%", width: "100%" }} src={image} />
+            </div>
+            <Card.Title className="text-overflow-clamp">{title}</Card.Title>
             <div className="d-flex justify-content-start fw-bolder fs-4">
               <p>{price} €</p>
             </div>

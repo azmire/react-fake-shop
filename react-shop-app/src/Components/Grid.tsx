@@ -25,7 +25,7 @@ export default function Grid({ items }: GridProps) {
           .map((item) => {
             return (
               <Col
-                className="d-flex justify-content-center pt-1 pb-1"
+                className="d-flex justify-content-center pt-1 pb-4"
                 key={item.id}
               >
                 <ItemCard
