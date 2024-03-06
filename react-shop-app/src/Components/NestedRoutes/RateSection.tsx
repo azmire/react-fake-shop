@@ -63,14 +63,13 @@ function RateSection() {
   };
 
   //DELETE REVIEW
-  const navigate = useNavigate();
   const deleteReview = async (reviewId: string) => {
     console.log("username :>> ", reviewId);
     if (itemId) {
       const reviewsRef = doc(db, "items", itemId, "reviews", reviewId);
 
       await deleteDoc(reviewsRef);
-      navigate(0);
+      getItemReviews();
     }
   };
 

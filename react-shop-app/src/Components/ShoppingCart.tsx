@@ -63,8 +63,13 @@ function ShoppingCart() {
 
   const decreaseItemNum = async (itemId: string, amount: number) => {
     console.log("itemId :>> ", itemId);
+    let newField;
     if (email) {
-      const newField = { amount: amount - 1 };
+      if (amount <= 0) {
+        newField = { amount: 0 };
+      } else {
+        newField = { amount: amount - 1 };
+      }
       const itemRef = doc(db, "users", email, "cart", itemId);
 
       await updateDoc(itemRef, newField);
@@ -129,7 +134,7 @@ function ShoppingCart() {
                         className="m-1 btn-link"
                         style={{ textDecoration: "none", border: "none" }}
                       >
-                        -----
+                        -
                       </button>
                     </div>
                     <div className="col p-0">

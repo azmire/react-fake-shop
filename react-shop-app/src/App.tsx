@@ -2,20 +2,20 @@ import Navbar from "./Components/Navbar";
 import Frontpage from "./Pages/Frontpage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./style/index.css";
+
+import { AuthContextProvider } from "./contexts/AuthContext";
+import Item from "./Pages/ItemPage";
+import ProtectedRoute from "./Components/NestedRoutes/ProtectedRoute";
+import RateSection from "./Components/NestedRoutes/RateSection";
 import MensClothing from "./Pages/MensClothing";
 import WomensClothing from "./Pages/WomensClothing";
 import Electronics from "./Pages/Electronics";
-import Error from "./Pages/ErrorPage";
 import Jewlery from "./Pages/Jewlery";
-import Item from "./Pages/ItemPage";
 import Signin from "./Pages/Signin";
-import { AuthContextProvider } from "./contexts/AuthContext";
-
-import RateSection from "./Components/NestedRoutes/RateSection";
-import ProtectedRoute from "./Components/NestedRoutes/ProtectedRoute";
-import { ModalProvider } from "./contexts/ModalContext";
-import Signup from "./Pages/SignUp";
+import SignUp from "./Pages/SignUp";
+import Error from "./Pages/ErrorPage";
 import { SearchProvider } from "./contexts/SearchContext";
+import { ModalProvider } from "./contexts/ModalContext";
 
 const router = createBrowserRouter([
   {
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: <SignUp />,
       },
 
       {

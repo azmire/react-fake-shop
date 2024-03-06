@@ -117,7 +117,7 @@ const Item = () => {
                 Add to cart
               </Button>
               <Button
-                onClick={() => setAmount(amount - 1)}
+                onClick={() => setAmount(amount <= 0 ? 0 : amount - 1)}
                 className="m-1 ms-3"
                 variant="danger"
               >

@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 import { Link } from "react-router-dom";
 import { NavLink } from "react-bootstrap";
 import ".././style/App.css";
