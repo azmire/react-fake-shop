@@ -1,4 +1,4 @@
-import useFetch from "../UseSearch/useFetch";
+import useFetch from "../hooks/useFetch";
 import { Container, Row, Spinner } from "react-bootstrap";
 import Grid from "../Components/Grid";
 function Jewlery() {

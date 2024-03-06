@@ -13,12 +13,12 @@ import { CgShoppingCart } from "react-icons/cg";
 import { db } from "../firebaseConfig";
 import { AuthContext } from "../contexts/AuthContext";
 import ".././style/App.css";
-import { useNavigate } from "react-router-dom";
+import { ProductItem } from "../@types/ItemTypes";
 
 function ShoppingCart() {
   const [show, setShow] = useState(false);
   const { user, email } = useContext(AuthContext);
-  const [items, setItems] = useState<Array<{}>>([]);
+  const [items, setItems] = useState<ProductItem[]>([] as ProductItem[]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -29,10 +29,18 @@ function ShoppingCart() {
       const reviewsRef = collection(db, "users", email, "cart");
       const reviewsForItemQuery = query(reviewsRef);
       const querySnapshot = await getDocs(reviewsForItemQuery);
-      const filteredQuery = querySnapshot.docs.map((doc) => ({
+      /*  const filteredQuery= querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
-      }));
+      } as unknown as ProductItem)); */
+      const filteredQuery = querySnapshot.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          id: doc.id,
+        } as unknown as ProductItem;
+      });
+
+      console.log("filteredQuery :>> ", filteredQuery);
       setItems(filteredQuery);
     }
   };
@@ -42,7 +50,7 @@ function ShoppingCart() {
 
   //DELETE ITEMS FROM THE CART
 
-  const deleteItem = async (itemId) => {
+  const deleteItem = async (itemId: string) => {
     if (email) {
       const shoppingRef = doc(db, "users", email, "cart", itemId);
 
@@ -53,7 +61,8 @@ function ShoppingCart() {
 
   //UPDATE ITEM
 
-  const decreaseItemNum = async (itemId, amount) => {
+  const decreaseItemNum = async (itemId: string, amount: number) => {
+    console.log("itemId :>> ", itemId);
     if (email) {
       const newField = { amount: amount - 1 };
       const itemRef = doc(db, "users", email, "cart", itemId);
@@ -62,7 +71,7 @@ function ShoppingCart() {
       getItems();
     }
   };
-  const increaseItemNum = async (itemId, amount) => {
+  const increaseItemNum = async (itemId: string, amount: number) => {
     if (email) {
       const newField = { amount: amount + 1 };
       const itemRef = doc(db, "users", email, "cart", itemId);
@@ -120,7 +129,7 @@ function ShoppingCart() {
                         className="m-1 btn-link"
                         style={{ textDecoration: "none", border: "none" }}
                       >
-                        -
+                        -----
                       </button>
                     </div>
                     <div className="col p-0">

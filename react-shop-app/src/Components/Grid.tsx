@@ -1,13 +1,11 @@
-import { Rating, Result, Root } from "../@types/ItemTypes";
+import { Rating, ProductItem } from "../@types/ItemTypes";
 import { Col } from "react-bootstrap";
 import ItemCard from "./ItemCard";
 import { SearchContext } from "../contexts/SearchContext";
 import { useContext } from "react";
 
 type GridProps = {
-  items: Root | null;
-  item: Result;
-  rate: Rating;
+  items: ProductItem[];
 };
 
 export default function Grid({ items }: GridProps) {

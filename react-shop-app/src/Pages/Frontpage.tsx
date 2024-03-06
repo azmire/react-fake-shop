@@ -1,6 +1,6 @@
 import { Container, Row, Spinner } from "react-bootstrap";
 import Grid from "../Components/Grid";
-import useFetch from "../UseSearch/useFetch";
+import useFetch from "../hooks/useFetch";
 
 function Frontpage() {
   /* const [items, setItems] = useState<Root | null>(null); */

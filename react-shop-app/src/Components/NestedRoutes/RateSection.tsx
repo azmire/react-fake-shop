@@ -17,10 +17,11 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
+import { ReviewType } from "../../@types/ReviewTypes";
 
 function RateSection() {
   const [inputValue, setInputValue] = useState("");
-  const [reviews, setReviews] = useState<Array<{}>>([]);
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
   const { email } = useContext(AuthContext);
   const params = useParams();
   const itemId = params.id;
@@ -31,10 +32,12 @@ function RateSection() {
       const reviewsRef = collection(db, "items", itemId, "reviews");
       const reviewsForItemQuery = query(reviewsRef);
       const querySnapshot = await getDocs(reviewsForItemQuery);
-      const filteredQuery = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
+      const filteredQuery = querySnapshot.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          id: doc.id,
+        } as unknown as ReviewType;
+      });
       setReviews(filteredQuery);
     }
   };
@@ -61,7 +64,7 @@ function RateSection() {
 
   //DELETE REVIEW
   const navigate = useNavigate();
-  const deleteReview = async (reviewId) => {
+  const deleteReview = async (reviewId: string) => {
     console.log("username :>> ", reviewId);
     if (itemId) {
       const reviewsRef = doc(db, "items", itemId, "reviews", reviewId);

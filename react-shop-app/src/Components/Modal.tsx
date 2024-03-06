@@ -20,7 +20,9 @@ function CreateModal() {
       <div
         className="modal-container"
         onClick={(e) => {
-          if (e.target.className === "modal-container") {
+          console.log("e :>> ", e);
+          const eventTarget = e.target as HTMLDivElement;
+          if (eventTarget.className === "modal-container") {
             closeModal();
           }
         }}

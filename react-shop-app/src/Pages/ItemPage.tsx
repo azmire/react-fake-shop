@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Result } from "../@types/ItemTypes";
+
 import { useContext, useEffect, useState } from "react";
 import {
   Button,
@@ -16,14 +16,14 @@ import { TbTruck, TbTruckReturn } from "react-icons/tb";
 
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { AuthContext } from "../contexts/AuthContext";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { serverTimestamp } from "firebase/database";
-import InputGroupText from "react-bootstrap/esm/InputGroupText";
+import { APIProduct } from "../@types/ItemTypes";
 
 const Item = () => {
   const params = useParams();
-  const [products, setProducts] = useState<Result | null>(null);
+  const [products, setProducts] = useState<APIProduct | null>(null);
   const [amount, setAmount] = useState(1);
   const id = params.id;
   const url = `https://fakestoreapi.com/products/${id}`;
@@ -35,7 +35,7 @@ const Item = () => {
     try {
       const response = await fetch(url);
       if (response.ok) {
-        const result = (await response.json()) as Result;
+        const result = (await response.json()) as APIProduct;
         setProducts(result);
       }
     } catch (error) {
@@ -54,7 +54,12 @@ const Item = () => {
   }, [location]);
 
   //ADD ITEMS TO CART
-  const handleSubmit = async (itemImage, itemName, itemPrice, amount) => {
+  const handleSubmit = async (
+    itemImage: string,
+    itemName: string,
+    itemPrice: number,
+    amount: number
+  ) => {
     if (email && id) {
       try {
         await setDoc(doc(db, "users", email, "cart", id), {

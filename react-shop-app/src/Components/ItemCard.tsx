@@ -9,7 +9,7 @@ type ItemCardProps = {
   title: string;
   price: number;
   image: string;
-  id: number;
+  id: string;
 };
 
 function ItemCard({ title, price, image, id }: ItemCardProps) {

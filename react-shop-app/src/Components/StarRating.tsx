@@ -12,24 +12,26 @@ const StarRating = () => {
         {[...Array(5)].map((star, index) => {
           const currentRating = index + 1;
           star;
-          return (
-            <label key={index}>
-              <input
-                type="radio"
-                name="rating"
-                value={currentRating}
-                onClick={() => setRating(currentRating)}
-              />
+          if (hover && rating) {
+            return (
+              <label key={index}>
+                <input
+                  type="radio"
+                  name="rating"
+                  value={currentRating}
+                  onClick={() => setRating(currentRating)}
+                />
 
-              <FaStar
-                className="star"
-                size={25}
-                color={currentRating <= (hover || rating) ? "yellow" : "gray"}
-                onMouseEnter={() => setHover(currentRating)}
-                onMouseLeave={() => setHover(null)}
-              />
-            </label>
-          );
+                <FaStar
+                  className="star"
+                  size={25}
+                  color={currentRating <= (hover || rating) ? "yellow" : "gray"}
+                  onMouseEnter={() => setHover(currentRating)}
+                  onMouseLeave={() => setHover(null)}
+                />
+              </label>
+            );
+          }
         })}
 
         <div className="mt-3">
