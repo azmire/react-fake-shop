@@ -93,8 +93,11 @@ function RateSection() {
               </h5>
               <p>{review.itemReview}</p>
             </div>
+
             <Button
-              onClick={() => deleteReview(review.id)}
+              onClick={() =>
+                review.userName == email ? deleteReview(review.id) : 0
+              }
               className="my-auto mt-0 btn btn-link bg-transparent text-secondary text-decoration-none"
               title="Delete"
             >
