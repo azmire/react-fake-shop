@@ -65,7 +65,8 @@ function ShoppingCart() {
     console.log("itemId :>> ", itemId);
     let newField;
     if (email) {
-      if (amount <= 0) {
+      if (amount <= 1) {
+        deleteItem(itemId);
         newField = { amount: 0 };
       } else {
         newField = { amount: amount - 1 };
