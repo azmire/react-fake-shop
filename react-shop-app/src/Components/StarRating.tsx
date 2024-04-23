@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa6";
 import "../style/Stars.css";
 
 const StarRating = () => {
-  const [rating, setRating] = useState<number | null>(null);
+  const [rating, setRating] = useState<number>(0);
   const [hover, setHover] = useState<number | null>(null);
 
   return (
@@ -12,26 +12,25 @@ const StarRating = () => {
         {[...Array(5)].map((star, index) => {
           const currentRating = index + 1;
           star;
-          if (hover && rating) {
-            return (
-              <label key={index}>
-                <input
-                  type="radio"
-                  name="rating"
-                  value={currentRating}
-                  onClick={() => setRating(currentRating)}
-                />
 
-                <FaStar
-                  className="star"
-                  size={25}
-                  color={currentRating <= (hover || rating) ? "yellow" : "gray"}
-                  onMouseEnter={() => setHover(currentRating)}
-                  onMouseLeave={() => setHover(null)}
-                />
-              </label>
-            );
-          }
+          return (
+            <label key={index}>
+              <input
+                type="radio"
+                name="rating"
+                value={currentRating}
+                onClick={() => setRating(currentRating)}
+              />
+
+              <FaStar
+                className="star"
+                size={25}
+                color={currentRating <= (hover || rating) ? "yellow" : "gray"}
+                onMouseEnter={() => setHover(currentRating)}
+                onMouseLeave={() => setHover(null)}
+              />
+            </label>
+          );
         })}
 
         <div className="mt-3">

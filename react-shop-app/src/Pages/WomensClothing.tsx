@@ -1,6 +1,6 @@
-import useFetch from "../hooks/useFetch";
 import { Container, Row, Spinner } from "react-bootstrap";
 import Grid from "../Components/Grid";
+import useFetch from "../hooks/useFetch";
 
 function WomensClothing() {
   const url = "https://fakestoreapi.com/products/category/women's clothing";

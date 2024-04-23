@@ -6,7 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-import { CgProfile, CgShoppingCart } from "react-icons/cg";
+import { CgProfile } from "react-icons/cg";
 import { LuLogOut } from "react-icons/lu";
 import { ModalContext } from "../contexts/ModalContext";
 import CreateModal from "./Modal";

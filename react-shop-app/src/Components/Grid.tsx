@@ -1,4 +1,4 @@
-import { Rating, ProductItem } from "../@types/ItemTypes";
+import { ProductItem } from "../@types/ItemTypes";
 import { Col } from "react-bootstrap";
 import ItemCard from "./ItemCard";
 import { SearchContext } from "../contexts/SearchContext";

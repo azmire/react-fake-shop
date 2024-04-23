@@ -15,7 +15,7 @@ import {
 import { db } from "../../firebaseConfig";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import { ReviewType } from "../../@types/ReviewTypes";
 
@@ -95,9 +95,8 @@ function RateSection() {
             </div>
 
             <Button
-              onClick={() =>
-                review.userName == email ? deleteReview(review.id) : 0
-              }
+              style={{ display: review.userName == email ? "block" : "none" }}
+              onClick={() => deleteReview(review.id)}
               className="my-auto mt-0 btn btn-link bg-transparent text-secondary text-decoration-none"
               title="Delete"
             >

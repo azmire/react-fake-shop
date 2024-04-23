@@ -7,7 +7,6 @@ import {
   Col,
   Container,
   Image,
-  InputGroup,
   ListGroup,
   Row,
 } from "react-bootstrap";
